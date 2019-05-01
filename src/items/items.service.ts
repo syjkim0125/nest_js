@@ -19,4 +19,8 @@ export class ItemsService {
     const newItem = new this.itemModel(item);
     return newItem.save();
   }
+
+  delete(id: string): Promise<Item> {
+    return this.itemModel.findByIdAndRemove(id);
+  }
 }

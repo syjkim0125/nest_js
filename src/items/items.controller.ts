@@ -23,8 +23,8 @@ export class ItemsController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id): string {
-    return `Delete ${id}`;
+  delete(@Param('id') id): Promise<Item> {
+    return this.itemsService.delete(id);
   }
 
   @Put(':id')
