@@ -14,4 +14,9 @@ export class ItemsService {
   findOne(id: string): Promise<Item> {
     return this.itemModel.findOne({ _id: id });
   }
+
+  create(item: Item): Promise<Item> {
+    const newItem = new this.itemModel(item);
+    return newItem.save();
+  }
 }
