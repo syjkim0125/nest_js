@@ -7,20 +7,24 @@ import { InjectModel } from '@nestjs/mongoose';
 export class ItemsService {
   constructor(@InjectModel('Item') private readonly itemModel:Model<Item>) {}
 
-  findAll(): Promise<Item[]> {
-    return this.itemModel.find();
+  async findAll(): Promise<Item[]> {
+    return await this.itemModel.find();
   }
 
-  findOne(id: string): Promise<Item> {
-    return this.itemModel.findOne({ _id: id });
+  async findOne(id: string): Promise<Item> {
+    return await this.itemModel.findOne({ _id: id });
   }
 
-  create(item: Item): Promise<Item> {
+  async create(item: Item): Promise<Item> {
     const newItem = new this.itemModel(item);
-    return newItem.save();
+    return await newItem.save();
   }
 
-  delete(id: string): Promise<Item> {
-    return this.itemModel.findByIdAndRemove(id);
+  async delete(id: string): Promise<Item> {
+    return await this.itemModel.findByIdAndRemove(id);
+  }
+
+  async update(id: string, item: Item): Promise<Item> {
+    return await this.itemModel.findByIdAndUpdate(id, item, { new:true });
   }
 }
