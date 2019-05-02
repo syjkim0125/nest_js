@@ -1,1 +1,1 @@
-create rest api with NestJS
+simple crud API server with nestJS
