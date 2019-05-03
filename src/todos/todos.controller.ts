@@ -11,15 +11,15 @@ export class TodosController {
     return this.todosService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id): Promise<Todo> {
-  //   return this.todosService.findOne(id);
-  // }
+  @Get(':id')
+  findOne(@Param('id') id): Promise<Todo> {
+    return this.todosService.findOne(id);
+  }
 
-  // @Post()
-  // create(@Body() createTodoDto: CreateTodoDto): Promise<Todo> {
-  //   return this.todosService.create(createTodoDto);
-  // }
+  @Post()
+  create(@Body() todo: Todo): Promise<Todo> {
+    return this.todosService.create(todo);
+  }
 
   // @Delete(':id')
   // delete(@Param('id') id): Promise<Todo> {

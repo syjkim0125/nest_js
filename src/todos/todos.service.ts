@@ -11,14 +11,15 @@ export class TodosService {
     return await this.todoRepository.find();
   }
 
-  // async findOne(id: number): Promise<Todo> {
-  //   return await this.todoRepository.findOne({ id: id });
-  // }
+  async findOne(id: number): Promise<Todo> {
+    return await this.todoRepository.findOne({ id: id });
+  }
 
-  // async create(todo: Todo): Promise<Todo> {
-  //   const newTodo = new this.todoRepository(todo);
-  //   return await newTodo.save();
-  // }
+  async create(todo: Todo): Promise<Todo> {
+    const newTodo = await this.todoRepository.create(todo);
+    await this.todoRepository.save(newTodo);
+    return newTodo;
+  }
 
   // async delete(id: string): Promise<Todo> {
   //   return await this.todoRepository.findByIdAndRemove(id);
