@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 
-export const ItemSchema = ({
+export const TodoSchema = ({
   name: String,
   qty: Number,
   description: String,
