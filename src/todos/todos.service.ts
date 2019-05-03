@@ -21,11 +21,12 @@ export class TodosService {
     return newTodo;
   }
 
-  // async delete(id: string): Promise<Todo> {
-  //   return await this.todoRepository.findByIdAndRemove(id);
+  // async delete(id: number): Promise<Todo> {
+  //   return await this.todoRepository.delete(id);
   // }
-  //
-  // async update(id: string, todo: Todo): Promise<Todo> {
-  //   return await this.todoRepository.findByIdAndUpdate(id, todo, { new:true });
-  // }
+
+  async update(id: string, todo: Todo): Promise<Todo> {
+    await this.todoRepository.update(id, todo);
+    return await this.todoRepository.findOne(id);
+  }
 }

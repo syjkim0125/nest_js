@@ -25,9 +25,9 @@ export class TodosController {
   // delete(@Param('id') id): Promise<Todo> {
   //   return this.todosService.delete(id);
   // }
-  //
-  // @Put(':id')
-  // update(@Body() updateTodoDto: CreateTodoDto, @Param('id') id): Promise<Todo> {
-  //   return this.todosService.update(id, updateTodoDto);
-  // }
+
+  @Put(':id')
+  update(@Body() updateTodo: Todo, @Param('id') id): Promise<Todo> {
+    return this.todosService.update(id, updateTodo);
+  }
 }
