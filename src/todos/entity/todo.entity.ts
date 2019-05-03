@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 
 @Entity()
 export class Todo {
@@ -11,9 +11,9 @@ export class Todo {
   @Column('text')
   content: string;
 
-  @Column('date')
+  @Column()
   due_date: Date;
 
-  @Column('date')
+  @CreateDateColumn()
   created_at: Date;
 }
