@@ -21,10 +21,10 @@ export class TodosController {
     return this.todosService.create(todo);
   }
 
-  // @Delete(':id')
-  // delete(@Param('id') id): Promise<Todo> {
-  //   return this.todosService.delete(id);
-  // }
+  @Delete(':id')
+  delete(@Param('id') id): Promise<Todo> {
+    return this.todosService.delete(id);
+  }
 
   @Put(':id')
   update(@Body() updateTodo: Todo, @Param('id') id): Promise<Todo> {

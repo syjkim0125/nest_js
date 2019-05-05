@@ -21,9 +21,11 @@ export class TodosService {
     return newTodo;
   }
 
-  // async delete(id: number): Promise<Todo> {
-  //   return await this.todoRepository.delete(id);
-  // }
+  async delete(id: number): Promise<Todo> {
+    const deleteTodo = await this.todoRepository.findOne(id);
+    await this.todoRepository.remove(deleteTodo);
+    return deleteTodo;
+  }
 
   async update(id: string, todo: Todo): Promise<Todo> {
     await this.todoRepository.update(id, todo);
