@@ -22,8 +22,9 @@ export class TodosService {
 
   async create(todo: Todo): Promise<TodosRO> {
     const message = "created";
-    const newTodo = await this.todoRepository.create(todo);
+    let newTodo = await this.todoRepository.create(todo);
     await this.todoRepository.save(newTodo);
+    newTodo = await this.todoRepository.findOne(newTodo.id);
     return this.toResponseObject(message, newTodo);
   }
 
@@ -38,8 +39,10 @@ export class TodosService {
     }
   }
 
-  async update(id: string, todo: Todo): Promise<Todo> {
+  async update(id: string, todo: Todo): Promise<TodosRO> {
+    const message = "updated";
     await this.todoRepository.update(id, todo);
-    return await this.todoRepository.findOne(id);
+    const updateTodo = await this.todoRepository.findOne(id);
+    return this.toResponseObject(message, updateTodo);
   }
 }
