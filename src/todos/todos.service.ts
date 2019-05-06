@@ -8,7 +8,7 @@ import { TodosRO } from './ro/todo.ro';
 export class TodosService {
   constructor(@InjectRepository(Todo) private readonly todoRepository:Repository<Todo>) {}
 
-  private toResponseObject(message: string, todo: Todo): TodosRO {
+  private toResponseObject(message: string, todo?: Todo): TodosRO {
     return { message: message, todo: todo };
   }
 
@@ -28,11 +28,12 @@ export class TodosService {
     return this.toResponseObject(message, newTodo);
   }
 
-  async delete(id: number): Promise<Todo> {
+  async delete(id: number): Promise<TodosRO> {
     try {
+      const message = "deleted";
       const deleteTodo = await this.todoRepository.findOne(id);
       await this.todoRepository.remove(deleteTodo);
-      return deleteTodo;
+      return this.toResponseObject(message);
     } catch(err){
       console.log(err.message);
       return err.message;
