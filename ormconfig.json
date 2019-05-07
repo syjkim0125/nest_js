@@ -1,0 +1,11 @@
+{
+  "type": "mysql",
+  "host": "104.198.118.66",
+  "port": 3306,
+  "username": "root",
+  "password": "1234",
+  "database": "test",
+  "entities": ["./src/todos/entity/*.ts"],
+  "logging": true,
+  "synchronize": true
+}
