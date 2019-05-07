@@ -14,7 +14,7 @@ export class TodosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id): Promise<Todo> {
+  findOne(@Param('id') id: number): Promise<Todo> {
     return this.todosService.findOne(id);
   }
 
@@ -24,12 +24,12 @@ export class TodosController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id): Promise<TodoRO> {
+  delete(@Param('id') id: number): Promise<TodoRO> {
     return this.todosService.delete(id);
   }
 
   @Put(':id')
-  update(@Body() updateTodo: Partial<TodoDTO>, @Param('id') id): Promise<TodoRO> {
+  update(@Param('id') id: number, @Body() updateTodo: Partial<TodoDTO>): Promise<TodoRO> {
     return this.todosService.update(id, updateTodo);
   }
 }

@@ -41,7 +41,7 @@ export class TodosService {
     }
   }
 
-  async update(id: string, todo: Partial<TodoDTO>): Promise<TodoRO> {
+  async update(id: number, todo: Partial<TodoDTO>): Promise<TodoRO> {
     const message = "updated";
     await this.todoRepository.update(id, todo);
     const updateTodo = await this.todoRepository.findOne(id);
