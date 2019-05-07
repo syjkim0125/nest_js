@@ -2,13 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Todo } from './entity/todo.entity';
+import { TodoDTO } from './dto/todo.dto';
 import { TodoRO } from './ro/todo.ro';
 
 @Injectable()
 export class TodosService {
   constructor(@InjectRepository(Todo) private readonly todoRepository:Repository<Todo>) {}
 
-  private toResponseObject(message: string, todo?: Todo): TodosRO {
+  private toResponseObject(message: string, todo?: Todo): TodoRO {
     return { message: message, todo: todo };
   }
 
@@ -20,7 +21,7 @@ export class TodosService {
     return await this.todoRepository.findOne({ id: id });
   }
 
-  async create(todo: Todo): Promise<TodoRO> {
+  async create(todo: TodoDTO): Promise<TodoRO> {
     const message = "created";
     let newTodo = await this.todoRepository.create(todo);
     await this.todoRepository.save(newTodo);
@@ -40,7 +41,7 @@ export class TodosService {
     }
   }
 
-  async update(id: string, todo: Todo): Promise<TodoRO> {
+  async update(id: string, todo: Partial<TodoDTO>): Promise<TodoRO> {
     const message = "updated";
     await this.todoRepository.update(id, todo);
     const updateTodo = await this.todoRepository.findOne(id);

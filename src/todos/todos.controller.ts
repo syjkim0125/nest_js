@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { TodosService} from './todos.service';
 import { Todo } from './entity/todo.entity';
+import { TodoDTO } from './dto/todo.dto';
 import { TodoRO } from './ro/todo.ro';
 
 @Controller('todos')
@@ -18,7 +19,7 @@ export class TodosController {
   }
 
   @Post()
-  create(@Body() todo: Todo): Promise<TodoRO> {
+  create(@Body() todo: TodoDTO): Promise<TodoRO> {
     return this.todosService.create(todo);
   }
 
@@ -28,7 +29,7 @@ export class TodosController {
   }
 
   @Put(':id')
-  update(@Body() updateTodo: Todo, @Param('id') id): Promise<TodoRO> {
+  update(@Body() updateTodo: TodoDTO, @Param('id') id): Promise<TodoRO> {
     return this.todosService.update(id, updateTodo);
   }
 }
