@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Todo } from './entity/todo.entity';
-import { TodosRO } from './ro/todo.ro';
+import { TodoRO } from './ro/todo.ro';
 
 @Injectable()
 export class TodosService {
@@ -20,7 +20,7 @@ export class TodosService {
     return await this.todoRepository.findOne({ id: id });
   }
 
-  async create(todo: Todo): Promise<TodosRO> {
+  async create(todo: Todo): Promise<TodoRO> {
     const message = "created";
     let newTodo = await this.todoRepository.create(todo);
     await this.todoRepository.save(newTodo);
@@ -28,7 +28,7 @@ export class TodosService {
     return this.toResponseObject(message, newTodo);
   }
 
-  async delete(id: number): Promise<TodosRO> {
+  async delete(id: number): Promise<TodoRO> {
     try {
       const message = "deleted";
       const deleteTodo = await this.todoRepository.findOne(id);
@@ -40,7 +40,7 @@ export class TodosService {
     }
   }
 
-  async update(id: string, todo: Todo): Promise<TodosRO> {
+  async update(id: string, todo: Todo): Promise<TodoRO> {
     const message = "updated";
     await this.todoRepository.update(id, todo);
     const updateTodo = await this.todoRepository.findOne(id);

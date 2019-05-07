@@ -1,6 +1,6 @@
 import { Todo } from '../entity/todo.entity';
 
-export class TodosRO {
+export class TodoRO {
   message: string;
   todo: Todo;
 }
