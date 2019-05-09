@@ -18,7 +18,7 @@ export class TodosService {
   }
 
   async findOne(id: number): Promise<Todo> {
-    return await this.todoRepository.findOne({ id: id });
+    return await this.todoRepository.findOne(id);
   }
 
   async create(todo: TodoDTO): Promise<TodoRO> {
