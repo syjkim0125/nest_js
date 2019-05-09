@@ -23,6 +23,7 @@ export class TodosService {
     if(!todo) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
+
     return todo;
   }
 
@@ -31,6 +32,7 @@ export class TodosService {
     let newTodo = await this.todoRepository.create(todo);
     await this.todoRepository.save(newTodo);
     newTodo = await this.todoRepository.findOne(newTodo.id);
+
     return this.toResponseObject(message, newTodo);
   }
 
@@ -42,14 +44,22 @@ export class TodosService {
       return this.toResponseObject(message);
     } catch(err){
       console.log(err.message);
+
       return err.message;
     }
   }
 
   async update(id: number, todo: Partial<TodoDTO>): Promise<TodoRO> {
+    const checktodo = await this.todoRepository.findOne(id);
+    
+    if(!checktodo) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
+
     const message = "updated";
     await this.todoRepository.update(id, todo);
     const updateTodo = await this.todoRepository.findOne(id);
+
     return this.toResponseObject(message, updateTodo);
   }
 }
