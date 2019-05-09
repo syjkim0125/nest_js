@@ -37,16 +37,15 @@ export class TodosService {
   }
 
   async delete(id: number): Promise<TodoRO> {
-    try {
-      const message = "deleted";
-      const deleteTodo = await this.todoRepository.findOne(id);
-      await this.todoRepository.remove(deleteTodo);
-      return this.toResponseObject(message);
-    } catch(err){
-      console.log(err.message);
-
-      return err.message;
+    const deleteTodo = await this.todoRepository.findOne(id);
+    
+    if(!deleteTodo) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
+    
+    const message = "deleted";
+    await this.todoRepository.remove(deleteTodo);
+    return this.toResponseObject(message);  
   }
 
   async update(id: number, todo: Partial<TodoDTO>): Promise<TodoRO> {
