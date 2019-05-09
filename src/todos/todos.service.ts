@@ -49,15 +49,15 @@ export class TodosService {
   }
 
   async update(id: number, todo: Partial<TodoDTO>): Promise<TodoRO> {
-    const checktodo = await this.todoRepository.findOne(id);
+    let updateTodo = await this.todoRepository.findOne(id);
     
-    if(!checktodo) {
+    if(!updateTodo) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
 
     const message = "updated";
     await this.todoRepository.update(id, todo);
-    const updateTodo = await this.todoRepository.findOne(id);
+    updateTodo = await this.todoRepository.findOne(id);
 
     return this.toResponseObject(message, updateTodo);
   }
