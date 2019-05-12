@@ -23,21 +23,21 @@ describe('ROOT', () => {
       };
       const now: string = new Date().toLocaleString('ko-KR', {
         year:  'numeric',
-        month: '2-digit',
+        month: 'numeric',
         day:   '2-digit',
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit'});
+
+        console.log(todo.due_date.toLocaleString());
+        console.log(now);
 
       return request(app)
       .post('/todos')
       .set('Accept', 'application/json')
       .send(todo)
       .expect(({ body }) => {
-        if(body.due_date < now){
-          console.log('hola');
-          console.log(body);
-        }
+        console.log(body);
       })
       .expect(HttpStatus.BAD_REQUEST);
     })
