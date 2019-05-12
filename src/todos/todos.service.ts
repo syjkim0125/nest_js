@@ -28,8 +28,20 @@ export class TodosService {
   }
 
   async create(todo: TodoDTO): Promise<TodoRO> {
+    const now = new Date().toLocaleString('ko-KR', {
+      year:  'numeric',
+      month: '2-digit',
+      day:   '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'});
     const message = "created";
     let newTodo = await this.todoRepository.create(todo);
+
+    if(newTodo.due_date.toLocaleString() < now){
+      throw new HttpException('due_date can not be less than created_at', HttpStatus.BAD_REQUEST);
+    }
+
     await this.todoRepository.save(newTodo);
     newTodo = await this.todoRepository.findOne(newTodo.id);
 

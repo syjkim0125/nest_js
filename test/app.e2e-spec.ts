@@ -14,22 +14,32 @@ describe('ROOT', () => {
       .expect('Hello World!');
   });
 
-  describe('CREATE', () => {
+  describe('CREATE FAILED', () => {
     it('create todo', () => {
       const todo: TodoDTO = {
         title: "test",
         content: "testing",
-        due_date: new Date('2019-05-23 23:00:00')
+        due_date: new Date('2019-05-10 23:00:00')
       };
+      const now: string = new Date().toLocaleString('ko-KR', {
+        year:  'numeric',
+        month: '2-digit',
+        day:   '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'});
 
       return request(app)
       .post('/todos')
       .set('Accept', 'application/json')
       .send(todo)
       .expect(({ body }) => {
-        console.log(body);
+        if(body.due_date < now){
+          console.log('hola');
+          console.log(body);
+        }
       })
-      .expect(HttpStatus.CREATED);
+      .expect(HttpStatus.BAD_REQUEST);
     })
   })
 });
