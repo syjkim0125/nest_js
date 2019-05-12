@@ -1,23 +1,35 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
+import { TodoDTO } from 'src/todos/dto/todo.dto';
+import { HttpStatus } from '@nestjs/common';
 
-describe('AppController (e2e)', () => {
-  let app;
+const app = 'http://localhost:3000';
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
-
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
+describe('ROOT', () => {
+  it('should ping', () => {
+    return request(app)
       .get('/')
       .expect(200)
       .expect('Hello World!');
   });
+
+  describe('CREATE', () => {
+    it('create todo', () => {
+      const todo: TodoDTO = {
+        title: "test",
+        content: "testing",
+        due_date: new Date('2019-05-23 23:00:00')
+      };
+
+      return request(app)
+      .post('/todos')
+      .set('Accept', 'application/json')
+      .send(todo)
+      .expect(({ body }) => {
+        console.log(body);
+      })
+      .expect(HttpStatus.CREATED);
+    })
+  })
 });
