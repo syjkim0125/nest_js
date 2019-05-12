@@ -15,7 +15,7 @@ describe('ROOT', () => {
   });
 
   describe('CREATE FAILED', () => {
-    it('create todo', () => {
+    it('create todo failed', () => {
       const todo: TodoDTO = {
         title: "test",
         content: "testing",
